@@ -18,18 +18,15 @@
             ></v-img>
 
             <h2 class="text-2xl font-weight-semibold">
-              Materio
+              Admin Romper el Dolor
             </h2>
           </router-link>
         </v-card-title>
 
         <!-- title -->
         <v-card-text>
-          <p class="text-2xl font-weight-semibold text--primary mb-2">
-            Welcome to Materio! 👋🏻
-          </p>
-          <p class="mb-2">
-            Please sign-in to your account and start the adventure
+          <p class="mb-2 text-center">
+            Por favor ingresa tu correo electronico y la contraseña para poder ingresar
           </p>
         </v-card-text>
 
@@ -37,82 +34,34 @@
         <v-card-text>
           <v-form>
             <v-text-field
-              v-model="email"
+              v-model="user.email"
               outlined
-              label="Email"
+              label="Correo Electronico"
               placeholder="john@example.com"
               hide-details
               class="mb-3"
             ></v-text-field>
 
             <v-text-field
-              v-model="password"
+              v-model="user.password"
               outlined
               :type="isPasswordVisible ? 'text' : 'password'"
-              label="Password"
+              label="Contraseña"
               placeholder="············"
               :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
               hide-details
               @click:append="isPasswordVisible = !isPasswordVisible"
             ></v-text-field>
-
-            <div class="d-flex align-center justify-space-between flex-wrap">
-              <v-checkbox
-                label="Remember Me"
-                hide-details
-                class="me-3 mt-1"
-              >
-              </v-checkbox>
-
-              <!-- forgot link -->
-              <a
-                href="javascript:void(0)"
-                class="mt-1"
-              >
-                Forgot Password?
-              </a>
-            </div>
-
             <v-btn
               block
               color="primary"
               class="mt-6"
+              @click.prevent="authenticateUser"
             >
-              Login
+              Ingresar
             </v-btn>
           </v-form>
         </v-card-text>
-
-        <!-- create new account  -->
-        <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
-          <span class="me-2">
-            New on our platform?
-          </span>
-          <router-link :to="{name:'pages-register'}">
-            Create an account
-          </router-link>
-        </v-card-text>
-
-        <!-- divider -->
-        <v-card-text class="d-flex align-center mt-2">
-          <v-divider></v-divider>
-          <span class="mx-5">or</span>
-          <v-divider></v-divider>
-        </v-card-text>
-
-        <!-- social links -->
-        <v-card-actions class="d-flex justify-center">
-          <v-btn
-            v-for="link in socialLink"
-            :key="link.icon"
-            icon
-            class="ms-1"
-          >
-            <v-icon :color="$vuetify.theme.dark ? link.colorInDark : link.color">
-              {{ link.icon }}
-            </v-icon>
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </div>
 
@@ -147,6 +96,14 @@ import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOff
 import { ref } from '@vue/composition-api'
 
 export default {
+  name: "Login",
+  data: () => ({
+    user: {
+      email: null,
+      password: null
+    }
+  }),
+
   setup() {
     const isPasswordVisible = ref(false)
     const email = ref('')
@@ -186,9 +143,17 @@ export default {
       },
     }
   },
+  methods: {
+    authenticateUser(){
+      this.$store.dispatch('auth/authenticateUser', this.user);
+    }
+  }
 }
 </script>
-
 <style lang="scss">
-@import '~@/plugins/vuetify/default-preset/preset/pages/auth.scss';
+  @import '~@/plugins/vuetify/default-preset/preset/pages/auth.scss';
+
+  * {
+    font-family: "Roboto", sans-serif;
+  }
 </style>

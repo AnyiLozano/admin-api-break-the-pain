@@ -1,8 +1,8 @@
 <template>
   <v-list-item
-    class="vertical-nav-menu-link"
+    class="class"
     v-bind="$attrs"
-    active-class="bg-gradient-primary white--text"
+    :active-class="isActive"
   >
     <v-list-item-icon>
       <v-icon
@@ -32,12 +32,29 @@ export default {
       type: String,
       default: undefined,
     },
+    name: {
+      type: String
+    }
+    // to: {
+    //   type: Object
+    // }
   },
   setup() {
     return {
       alternateIcon: mdiCheckboxBlankCircleOutline,
     }
   },
+  data: () => ({
+    pathname: window.location.pathname,
+    isActive: '',
+    class: ""
+  }),
+  mounted(){
+    if(this.name == this.$route.name){
+      this.isActive = 'bg-gradient-primary white--text';
+      this.class = "vertical-nav-menu-link";
+    }
+  }
 }
 </script>
 
@@ -55,5 +72,9 @@ export default {
     box-shadow: 0 5px 10px -4px rgba(94, 86, 105, 0.42);
     @include elevationTransition();
   }
+}
+
+.v-list-item--link:before{
+  background-color: transparent;
 }
 </style>

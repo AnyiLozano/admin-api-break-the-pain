@@ -14,18 +14,9 @@
         to="/"
         class="d-flex align-center text-decoration-none"
       >
-        <v-img
-          :src="require('@/assets/images/logos/logo.svg')"
-          max-height="30px"
-          max-width="30px"
-          alt="logo"
-          contain
-          eager
-          class="app-logo me-3"
-        ></v-img>
         <v-slide-x-transition>
           <h2 class="app-title text--primary">
-            MATERIO
+            ROMPER EL DOLOR
           </h2>
         </v-slide-x-transition>
       </router-link>
@@ -37,6 +28,14 @@
       shaped
       class="vertical-nav-menu-items pr-5"
     >
+      <nav-menu-section-title title="ANALITICA"></nav-menu-section-title>
+      <nav-menu-section-title title="DOCUMENTACIÓN API"></nav-menu-section-title>
+      <nav-menu-link
+        title="Documentación Api"
+        :to="{ name: 'dashboard' }"
+        :icon="icons.mdiFormSelect"
+        name="dashboard"
+      ></nav-menu-link>
       <nav-menu-link
         title="Dashboard"
         :to="{ name: 'dashboard' }"
